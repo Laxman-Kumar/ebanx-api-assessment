@@ -4,6 +4,23 @@ app = Flask(__name__)
 
 ACCOUNTS_DATA = {}
 
+EVENT_ARGUMENT_TYPES = {
+    'deposit': events.depositArgs,
+}
+
+EVENT_TYPE_FUNCTIONS = {
+    'deposit': events.depositMoney,
+}
+
+
+@app.route('/reset', methods=['POST'])
+def reset():
+    global ACCOUNTS_DATA
+    res = 'OK'
+    status = 200
+    ACCOUNTS_DATA = {}
+    return res, status
+
 
 @app.route('/balance', methods=['GET'])
 def get_balance():
@@ -18,6 +35,14 @@ def get_balance():
 
     return balance, status
 
+@app.route('/event', methods=['POST'])
+def get_event():
+    global ACCOUNTS_DATA
+    request_data = request.get_json(force=True)
+    type_ = request_data['type']
+    data = EVENT_ARGUMENT_TYPES[type_](request_data)
+    response = EVENT_TYPE_FUNCTIONS[type_](ACCOUNTS_DATA, *data)
+    return response
 
 if __name__ == '__main__':
     app.run(port=8001)
