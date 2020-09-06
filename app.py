@@ -6,11 +6,16 @@ ACCOUNTS_DATA = {}
 
 EVENT_ARGUMENT_TYPES = {
     'deposit': events.depositArgs,
+    'withdraw': events.withdrawArgs,
+    'transfer': events.transferArgs
 }
 
 EVENT_TYPE_FUNCTIONS = {
     'deposit': events.depositMoney,
+    'withdraw': events.withdrawMoney,
+    'transfer': events.transferMoney
 }
+
 
 
 @app.route('/reset', methods=['POST'])
