@@ -17,7 +17,6 @@ EVENT_TYPE_FUNCTIONS = {
 }
 
 
-
 @app.route('/reset', methods=['POST'])
 def reset():
     global ACCOUNTS_DATA
@@ -40,6 +39,7 @@ def get_balance():
 
     return balance, status
 
+
 @app.route('/event', methods=['POST'])
 def get_event():
     global ACCOUNTS_DATA
@@ -48,6 +48,7 @@ def get_event():
     data = EVENT_ARGUMENT_TYPES[type_](request_data)
     response = EVENT_TYPE_FUNCTIONS[type_](ACCOUNTS_DATA, *data)
     return response
+
 
 if __name__ == '__main__':
     app.run(port=8001)

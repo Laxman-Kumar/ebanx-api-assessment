@@ -9,9 +9,9 @@ def is_negative(balance, amount):
     return bool((balance - amount) < 0)
 
 
-def getCreateAccount(account_info, destination):
-    account_info[destination] = account_info.get(destination, 0)
-    return account_info[destination]
+def getCreateAccount(account, destination):
+    account[destination] = account.get(destination, 0)
+    return account[destination]
 
 
 def depositArgs(request):
@@ -30,11 +30,11 @@ def withdrawArgs(request):
 
 def depositMoney(account, destination, amount):
     amount = float(amount)
-    prevbalance = getCreateAccount(account, destination)
-    newbalance = prevbalance + amount
-    account[destination] = newbalance
+    prevBalance = getCreateAccount(account, destination)
+    newBalance = prevBalance + amount
+    account[destination] = newBalance
     response = {
-        'destination': return_response(destination, newbalance)
+        'destination': return_response(destination, newBalance)
     }
     return response, 201
 
